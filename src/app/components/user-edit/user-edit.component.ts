@@ -2,8 +2,9 @@ import { UserService } from './../../user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormArrayName, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,10 +14,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserEditComponent implements OnInit {
   user: User = new User();
   id: number;
+  errorMessage: string;
+  errorStatus: string;
+ 
 
   constructor(private userService: UserService, private route: ActivatedRoute,private fb: FormBuilder, private snackbar:MatSnackBar){
     console.log("this is the message from constructor" + this.user)
     this.id = 0;
+    this.errorMessage = '';
+    this.errorStatus = ''
   }
 
   ngOnInit(): void {
@@ -25,24 +31,28 @@ export class UserEditComponent implements OnInit {
       this.user = data;
       console.log(data.id)
       console.log(data)
-      console.log(data.email)
-      console.log(data.lname)
-
-    }, error => console.log(error));
+    }, err => {
+      if (err instanceof HttpErrorResponse) {
+        const error = err.error;
+        this.errorMessage = error.message;
+        this.errorStatus = error.status;
+        console.log(error)
+        console.log(this.errorMessage);
+        console.log(this.errorStatus);
+      }
+    })
   }
-
-  // validateForm = this.fb.group({
-  //   email: ['sample email',[Validators.required, Validators.email]],
-  //   firstName: ['',[Validators.required, Validators.maxLength(10)]],
-  //   password: ['',[Validators.required, Validators.minLength(6)]]
-  // });
-
-  
 
   onSubmit(){
     this.userService.updateUser(this.id, this.user).subscribe(data => {
       this.snackbar.open('Updated successfully', 'ok')
-    }, error => console.log(error));
+    }, err => {
+      console.log(err);
+      const error = err.error;
+      this.errorMessage = error.message;
+      this.snackbar.open(this.errorMessage, 'ok')
+      console.log("errormessage" + this.errorMessage)
+    });
   }
 
 }

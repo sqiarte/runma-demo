@@ -1,4 +1,10 @@
-<div class="flex justify-center">
+
+<!-- If there is any error message, do not show the edit account form -->
+<div class="alert alert-danger font-bold text-xl text-center" role="alert" *ngIf="errorStatus == '404'">
+  {{ errorMessage + " !" }}
+</div>
+
+<div class="flex justify-center" *ngIf="errorStatus != '404'">
   <div class="form-container flex flex-col w-2/4 px-5 pb-2">
     <div class="flex my-4 items-center">
       <div class="title text-orange-600 text-3xl font-bold">Edit Account</div>
@@ -10,14 +16,13 @@
       <div class="form-group flex flex-col">
         <div class="text-blue-400 text-lg pb-2">Personal Information</div>
         <div>
-          <label class="form-lable px-2">First Name</label>
+          <label class="form-lable">First Name *</label>
           <input
             type="text"
             id="name"
             name="name"
             class="form-control"
             required
-            minlength="4"
             [(ngModel)]="user.fname"
             #name="ngModel"
           />
@@ -26,28 +31,20 @@
             class="form-text text-danger"
             role="alert"
           >
-            Name is required.
-          </div>
-          <div
-            *ngIf="name.errors?.['minlength']"
-            class="alert alert-danger"
-            role="alert"
-          >
-            Name must be at least 4 characters long.
+            First name is required.
           </div>
         </div>
         <!-- <h2>{{ user | json }}</h2> -->
         <!-- <div *ngIf="name.errors?.['required']">Name is required.</div>
         <div *ngIf="name.errors?.['minlength']">First Name cannot less than 10 characters</div> -->
         <div>
-          <label class="form-lable pt-2">Last Name</label>
+          <label class="form-lable pt-2">Last Name *</label>
           <input
             type="text"
             id="lname"
             name="lname"
             class="form-control"
             required
-            minlength="4"
             [(ngModel)]="user.lname"
             #lname="ngModel"
           />
@@ -57,13 +54,6 @@
             role="alert"
           >
             Last name is required.
-          </div>
-          <div
-            *ngIf="lname.errors?.['minlength']"
-            class="alert alert-danger"
-            role="alert"
-          >
-            Last name must be at least 4 characters long.
           </div>
         </div>
 
@@ -93,7 +83,7 @@
       <div class="form-group flex flex-col">
         <div class="text-blue-400 text-lg py-2">Contact Information</div>
         <div>
-          <label class="form-lable px-2">Email</label>
+          <label class="form-lable">Email *</label>
           <input
             type="email"
             id="email"
@@ -187,7 +177,7 @@
           </div>
 
           <div class="col">
-            <label class="form-lable pt-2">Phone number</label>
+            <label class="form-lable pt-2">Phone number *</label>
             <input
               type="text"
               id="phone"
@@ -221,9 +211,9 @@
         <div class="text-blue-400 text-lg py-2">Want to change password ?</div>
         <div class="flex row">
           <div class="col">
-            <label class="form-lable">Password</label>
+            <label class="form-lable">Password *</label>
             <input
-              type="password"
+              type="text"
               id="password"
               name="password"
               class="form-control"
@@ -249,30 +239,23 @@
           </div>
 
           <div class="col">
-            <label class="form-lable">Confirm Password</label>
+            <label class="form-lable">Confirm Password *</label>
             <input
-              type="password"
+              type="text"
               id="cpassword"
               name="cpassword"
               class="form-control"
               required
               minlength="8"
-              [(ngModel)]="user.password"
+              [ngModel]="user.password"
               #cPassword="ngModel"
             />
             <div
-              *ngIf="cPassword.errors?.['required']"
+              *ngIf="cPassword.value != password.value"
               class="alert alert-danger"
               role="alert"
             >
-              Password confirmation is required.
-            </div>
-            <div
-              *ngIf="cPassword.errors?.['minlength']"
-              class="alert alert-danger"
-              role="alert"
-            >
-              Password must be at least 8 characters long.
+              Password is not matched.
             </div>
           </div>
         </div>
@@ -283,6 +266,7 @@
       <button
         class="btn btn-success mx-2 px-5 col text-white"
         [disabled]="editUserForm.form.invalid"
+        [disabled]="cPassword.value != password.value"
         (click)="onSubmit()"
       >
         SAVE
