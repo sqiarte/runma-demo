@@ -1,0 +1,125 @@
+<div class="container bg-orange-100 h-full">
+  <div class="h-full flex justify-center items-center">
+    <div class="form-container flex flex-col w-4/12 p-5 bg-white rounded-xl">
+      <div class="text-amber-600 font-bold text-3xl pb-3">CREATE EVENT</div>
+
+
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmitEvent()">
+        <div class="flex flex-col mb-3">
+          <div class="form-group">
+            <label for="name" class="font-medium">NAME</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="form-control"
+            />
+          </div>
+          <div class="form-text text-danger" role="alert">
+            <!-- First name is required. -->
+          </div>
+        </div>
+
+
+          <div class="flex flex-col  mb-3">
+            <div class="form-group">
+              <label for="raceDateTime" class="font-medium">RACE DATE</label>
+              <input
+                id="raceDateTime"
+                type="date"
+                formControlName="raceDateTime"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+          <div class="flex flex-col  mb-3">
+            <div class="form-group">
+              <label for="openRegisDate" class="font-medium">OPEN REGISTER DATE</label>
+              <input
+                id="openRegisDate"
+                type="date"
+                formControlName="openRegisDate"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+          <div class="flex flex-col mb-3">
+            <div class="form-group">
+              <label for="openRegisDate" class="font-medium">CLOSE REGISTER DATE</label>
+              <input
+                id="openRegisDate"
+                type="date"
+                formControlName="openRegisDate"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+          <div class="flex flex-col mb-3">
+            <div class="form-group">
+              <label for="location" class="font-medium">LOCATION</label>
+              <input
+                id="location"
+                type="text"
+                formControlName="location"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+          <div class="flex flex-col mb-3">
+            <div class="form-group">
+              <label for="province" class="font-medium">PROVINCE</label>
+              <input
+                id="province"
+                type="text"
+                formControlName="province"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+          <div class="flex flex-col mb-3">
+            <div class="form-group">
+              <label for="capacity" class="font-medium">CAPACITY</label>
+              <input
+                id="capacity"
+                type="number"
+                formControlName="capacity"
+                class="form-control"
+              />
+            </div>
+            <div class="form-text text-danger" role="alert">
+              <!-- First name is required. -->
+            </div>
+          </div>
+
+      <div class="flex flex-col my-2 mb-3">
+        <button class="btn btn-danger my-2 text-white" (click)="onSubmitEvent">Create</button>
+        <button class="btn btn-secondary">Cancel</button>
+      </div>
+
+
+      </form>
+
+
+    </div>
+  </div>
+</div>

@@ -10,12 +10,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { OrganizerEditComponent } from './components/organizer-edit/organizer-edit.component';
+import { CreateEventComponent } from './components/create-event/create-event.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UserEditComponent,
+    OrganizerEditComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,

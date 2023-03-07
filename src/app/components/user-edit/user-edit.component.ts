@@ -16,13 +16,16 @@ export class UserEditComponent implements OnInit {
   id: number;
   errorMessage: string;
   errorStatus: string;
- 
+  passwordConfirm: string;
+  userName: string;
 
   constructor(private userService: UserService, private route: ActivatedRoute,private fb: FormBuilder, private snackbar:MatSnackBar){
     console.log("this is the message from constructor" + this.user)
     this.id = 0;
     this.errorMessage = '';
-    this.errorStatus = ''
+    this.errorStatus = '';
+    this.passwordConfirm = '';
+    this.userName = '';
   }
 
   ngOnInit(): void {
@@ -31,6 +34,8 @@ export class UserEditComponent implements OnInit {
       this.user = data;
       console.log(data.id)
       console.log(data)
+      this.passwordConfirm = data.password
+      this.userName = data.fname
     }, err => {
       if (err instanceof HttpErrorResponse) {
         const error = err.error;
