@@ -23,16 +23,28 @@ export class CreateEventComponent implements OnInit {
   eventForm = this.fb.group({
     name: ['', Validators.required],
     location: ['', Validators.required],
-    raceDateTime: ['', Validators.required],
+    raceDate: ['', Validators.required],
     openRegisDate: ['', Validators.required],
     closeRegisDate: ['', Validators.required],
     province: ['', Validators.required],
     capacity: ['', Validators.required],
-    organizerID: ['',]
   })
 
   ngOnInit(): void {
-    //ต้อง get organizer id มาด้วย???
+    //ต้อง get organizer id มาด้วย??? // ถ้ามี token น่าจะมาจาก token
+    this.eventService.getOrganizerById(1).subscribe(data=>{
+      console.log(data);
+      console.log(data.id)
+      this.orgID = data.id
+    }, err => console.log(err));
+
+
+    // ลอง get event
+    this.eventService.getEventById(3).subscribe(data=>{
+      console.log(data);
+      // console.log(data.id)
+      // this.orgID = data.id
+    }, err => console.log(err));
   }
 
   onSubmitEvent() {
